@@ -1,0 +1,14 @@
+.div-all {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.div-header div {
+    width: 150px;
+    float: left;
+}
+
+.div-lines div {
+    width: 150px;
+    float: left;
+}

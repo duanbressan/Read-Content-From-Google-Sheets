@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <style>
+
+            table, th, td 
+            {
+                margin:10px 0;
+                border:solid 1px #333;
+                padding:2px 4px;
+                font:15px Verdana;
+            }
+
+            th {
+                font-weight:bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div align="center">
+            <h1>Read Table From Google Sheets</h1> 
+            <div id="showData"></div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        
+        <script>
+            $(function() {
+
+                var url = "https://script.google.com/macros/s/AKfycbwL0b2a_JNnkKOHNjKjSSeXL_gZk6wTLQp109P9GCqm0QDpb5c/exec?action=read";
+
+                $.getJSON(url, function (json) {
+
+                    console.log(json.records);
+
+                    // CREATE DYNAMIC TABLE.
+                    var table = document.createElement("table");
+
+                    var header = table.createTHead();
+                    var row = header.insertRow(0);     
+                    
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+
+                    cell1.innerHTML = "<b>Coluna 1</b>";
+                    cell2.innerHTML = "<b>Coluna 2</b>";
+                    cell3.innerHTML = "<b>Coluna 3</b>";
+
+                    // ADD JSON DATA TO THE TABLE AS ROWS.
+                    for (var i = 0; i < json.records.length; i++) {
+                        
+                        tr = table.insertRow(-1);
+
+                        var tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML = json.records[i].coluna1;
+                        
+                        tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML = json.records[i].coluna2;
+                        
+                        tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML = json.records[i].coluna3;
+                    }
+      
+
+                    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                    var divContainer = document.getElementById("showData");
+                    divContainer.innerHTML = "";
+                    divContainer.appendChild(table);
+                });
+            });  
+        </script>
+    </body>
+<html>
